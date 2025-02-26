@@ -14,7 +14,13 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
 
     while(True): # Primary game loop
         # Handle quitting the game
@@ -22,16 +28,19 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        # Draw background
-        screen.fill("black")
+
 
         ###
 
         # Update entities
-        player.update(dt)
+        updatable.update(dt)
+
+        # Draw background
+        screen.fill("black")
 
         # Draw entities
-        player.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
 
         ####
 
