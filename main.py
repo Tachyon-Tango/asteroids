@@ -40,10 +40,21 @@ def main():
         # Update entities
         updatable.update(dt)
 
-        for ast in asteroids:
-            if(player.check_collision_with(ast)):
+        # Collision logic
+        for current_asteroid in asteroids:
+            if(player.check_collision_with(current_asteroid)):
                 print( "Game over!")
                 return
+            
+            
+        for current_shot in shots:
+            for current_asteroid in asteroids:
+                if(current_shot.check_collision_with(current_asteroid)):
+                    current_asteroid.split()
+                    current_shot.kill()
+                    break
+                
+                    
 
         # Draw background
         screen.fill("black")
